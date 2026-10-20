@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Imogene Ngo. Barry's instructor and yoga teacher in Seattle.">
+<title>Imogene Ngo</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  /* Layout: one column of noir, φ-split hero (photo 61.8 / name 38.2), hairline-ruled link list, one full-bleed photo break.
+     Single committed dark look (Saint Laurent): noir ground, bone type, no colour. Fibonacci spacing 5 8 13 21 34 55 89. */
+  :root {
+    --noir:#0A0A0A; --bone:#F3F0EA; --bone-2:#B9B5AE; --bone-3:#77736D; --hair:#2A2A2A;
+    --display:"Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+    --body:"Jost", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color-scheme: dark;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--noir); color:var(--bone); font-family:var(--body); font-weight:300;
+         -webkit-font-smoothing:antialiased; line-height:1.6; overflow-x:hidden; }
+  a { color:inherit; text-decoration:none; }
+  a:focus-visible, button:focus-visible { outline:1px solid var(--bone); outline-offset:4px; }
+  .wrap { padding-left:max(21px, env(safe-area-inset-left, 0px)); padding-right:max(21px, env(safe-area-inset-right, 0px)); }
+  .in { max-width:1120px; margin-inline:auto; }
+
+  /* ── Top bar ── */
+  .bar { display:flex; justify-content:space-between; align-items:center; padding-block:21px; }
+  .bar .mark { font-family:var(--display); font-style:italic; font-size:22px; letter-spacing:.01em; }
+  .bar nav { display:flex; gap:21px; font-size:10px; letter-spacing:.28em; text-transform:uppercase; color:var(--bone-2); }
+  .bar nav a:hover { color:var(--bone); }
+
+  /* ── Hero ── */
+  .hero { display:grid; grid-template-columns:1fr 1.618fr; align-items:end; gap:34px; padding-block:34px 55px; }
+  .hero .photo { position:relative; aspect-ratio:3 / 4; max-width:100%; overflow:hidden; }
+  .hero .photo img { width:100%; height:100%; object-fit:cover; object-position:50% 20%; display:block;
+                     filter:grayscale(.25) contrast(1.04); }
+  .hero .photo::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg, transparent 55%, rgba(10,10,10,.55) 100%); }
+  .hero .name { padding-bottom:13px; }
+  .eyebrow { font-size:10px; letter-spacing:.34em; text-transform:uppercase; color:var(--bone-2); }
+  .first { font-family:var(--display); font-style:italic; font-weight:400; font-size:clamp(64px, 9.5vw, 128px); line-height:.9;
+           letter-spacing:-.01em; margin-top:13px; text-wrap:balance; }
+  .last { font-size:clamp(12px, 1.3vw, 15px); letter-spacing:.62em; text-transform:uppercase; margin-top:13px; padding-left:.2em; }
+  .line { margin-top:34px; font-size:14px; line-height:1.7; color:var(--bone-2); max-width:34ch; }
+
+  /* ── Sections ── */
+  section { padding-block:55px; }
+  h2 { font-size:10px; font-weight:500; letter-spacing:.34em; text-transform:uppercase; color:var(--bone-3);
+       padding-bottom:13px; border-bottom:.5px solid var(--hair); }
+
+  /* Link list: one hairline per row, no pills, no cards. */
+  .links { list-style:none; }
+  .links li { border-bottom:.5px solid var(--hair); }
+  .links a { display:grid; grid-template-columns:1fr auto; align-items:baseline; gap:21px; padding-block:21px;
+             transition:padding-left 162ms ease; }
+  .links a:hover { padding-left:8px; }
+  .links a > span:first-child { min-width:0; }
+  .links .t { font-family:var(--display); font-size:clamp(24px, 3vw, 34px); font-weight:400; line-height:1.1; }
+  .links .d { display:block; margin-top:5px; font-size:13px; color:var(--bone-2); font-family:var(--body); }
+  .links .arrow { font-size:10px; letter-spacing:.28em; text-transform:uppercase; color:var(--bone-2); white-space:nowrap; }
+  .links a:hover .arrow { color:var(--bone); }
+
+  /* ── Photo break ── */
+  .break { position:relative; margin-block:21px; }
+  .break img { width:100%; max-height:88svh; object-fit:cover; object-position:50% 40%; display:block; filter:grayscale(.25) contrast(1.04); }
+  .break figcaption { position:absolute; left:0; right:0; bottom:0; padding:34px; padding-left:max(34px, env(safe-area-inset-left, 0px));
+                      background:linear-gradient(0deg, rgba(10,10,10,.75), transparent); }
+  .break figcaption p { font-family:var(--display); font-style:italic; font-size:clamp(22px, 3.2vw, 40px); line-height:1.2; max-width:18ch; text-wrap:balance; }
+
+  /* ── Work with me ── */
+  .grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:34px; margin-top:34px; }
+  .grid div { min-width:0; }
+  .grid h3 { font-family:var(--display); font-weight:400; font-size:22px; line-height:1.2; }
+  .grid p { margin-top:8px; font-size:14px; color:var(--bone-2); }
+
+  /* ── Contact / footer ── */
+  .contact { display:flex; flex-wrap:wrap; gap:13px 34px; align-items:baseline; margin-top:34px; }
+  .email { font-family:var(--display); font-size:clamp(20px, 2.6vw, 30px); word-break:break-all; }
+  .copy { font:inherit; font-size:10px; letter-spacing:.28em; text-transform:uppercase; color:var(--bone-2); background:none; border:0;
+          border-bottom:.5px solid var(--hair); padding:0 0 3px; cursor:pointer; }
+  .copy:hover { color:var(--bone); }
+  footer { padding-block:55px 34px; display:flex; flex-wrap:wrap; gap:13px 34px; justify-content:space-between;
+           font-size:10px; letter-spacing:.28em; text-transform:uppercase; color:var(--bone-3); border-top:.5px solid var(--hair); }
+  footer .mark { font-family:var(--display); font-style:italic; text-transform:none; letter-spacing:0; font-size:18px; color:var(--bone-2); }
+
+  @media (max-width:760px) {
+    .bar nav { display:none; }
+    .hero { grid-template-columns:1fr; gap:21px; padding-block:8px 34px; }
+    .hero .photo { aspect-ratio:4 / 5; order:-1; }
+    .hero .photo img { object-position:50% 15%; }
+    .grid { grid-template-columns:1fr; gap:21px; }
+    .break img { max-height:72svh; object-position:50% 30%; }
+    .break figcaption { padding:21px; }
+    section { padding-block:34px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .links a { transition:none; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="in">
+    <header class="bar">
+      <a class="mark" href="#top">Imogene</a>
+      <nav>
+        <a href="#train">Train</a>
+        <a href="#work">Work with me</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <section class="hero" id="top">
+      <div class="name">
+        <div class="eyebrow">Seattle</div>
+        <h1 class="first">Imogene</h1>
+        <div class="last">Ngo</div>
+        <p class="line">Barry's instructor. Yoga teacher at The Studio. Division Director, Nixon.</p>
+      </div>
+      <figure class="photo">
+        <img src="img/imogene-seated.jpg" alt="Imogene seated on a studio floor in a black bodysuit, looking at the camera" width="1400" height="2343">
+      </figure>
+    </section>
+
+    <section id="train">
+      <h2>Train with me</h2>
+      <ul class="links">
+        <li><a href="https://www.barrys.com/" target="_blank" rel="noopener">
+          <span><span class="t">Barry's</span><span class="d">Book a class with me in Seattle.</span></span>
+          <span class="arrow">Book ↗</span></a></li>
+        <li><a href="#contact">
+          <span><span class="t">Yoga at The Studio</span><span class="d">Vinyasa and breathwork in Seattle. 500-hour certified.</span></span>
+          <span class="arrow">Schedule ↗</span></a></li>
+        <li><a href="https://www.instagram.com/ngo.ge/" target="_blank" rel="noopener">
+          <span><span class="t">Instagram</span><span class="d">@ngo.ge. Where I'm teaching this week.</span></span>
+          <span class="arrow">Follow ↗</span></a></li>
+      </ul>
+    </section>
+  </div>
+</div>
+
+<figure class="break">
+  <img src="img/imogene-backbend.jpg" alt="Imogene in a deep backbend on a studio floor, lit from one side" width="1400" height="1882">
+</figure>
+
+<div class="wrap">
+  <div class="in">
+    <section id="work">
+      <h2>Work with me</h2>
+      <div class="grid">
+        <div><h3>Brand partnerships</h3><p>I've spent fifteen years in retail and brand sales, and I only work with brands I'd wear.</p></div>
+        <div><h3>Events</h3><p>I'll teach a class for your team, your event, or your launch.</p></div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <div class="contact">
+        <span class="email" id="email">info@imogenengo.com</span>
+        <button class="copy" id="copyBtn" type="button">Copy email</button>
+      </div>
+    </section>
+
+    <footer>
+      <span class="mark">Imogene</span>
+      <span>imogenengo.com · Seattle, WA</span>
+    </footer>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var btn = document.getElementById('copyBtn');
+    var email = document.getElementById('email');
+    btn.addEventListener('click', function () {
+      var text = email.textContent.trim();
+      function done(ok) { btn.textContent = ok ? 'Copied' : 'Select and copy'; setTimeout(function(){ btn.textContent = 'Copy email'; }, 1600); }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function(){ done(true); }, function(){ select(); done(false); });
+      } else { select(); done(false); }
+      function select() {
+        try { var r = document.createRange(); r.selectNodeContents(email); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); } catch (e) {}
+      }
+    });
+  })();
+</script>
+</body>
+</html>
