@@ -72,8 +72,8 @@
   .links a:hover .arrow { color:var(--bone); }
 
   /* ── Photo break ── */
-  .break { position:relative; margin-block:21px; }
-  .break img { width:100%; aspect-ratio:4 / 3; object-fit:cover; object-position:50% 78%; display:block; filter:grayscale(.25) contrast(1.04); }
+  .break { margin-block:21px; padding-block:34px; display:grid; justify-items:center; }
+  .break img { display:block; width:auto; height:auto; max-width:100%; max-height:89svh; filter:grayscale(.25) contrast(1.04); }
   .break figcaption { position:absolute; left:0; right:0; bottom:0; padding:34px; padding-left:max(34px, env(safe-area-inset-left, 0px));
                       background:linear-gradient(0deg, rgba(10,10,10,.75), transparent); }
   .break figcaption p { font-family:var(--display); font-style:italic; font-size:clamp(22px, 3.2vw, 40px); line-height:1.2; max-width:18ch; text-wrap:balance; }
@@ -101,7 +101,8 @@
     .hero .photo { aspect-ratio:4 / 5; order:-1; }
     .hero .photo img { object-position:50% 15%; }
     .grid { grid-template-columns:1fr; gap:21px; }
-    .break img { aspect-ratio:4 / 5; object-position:50% 60%; }
+    .break { padding-block:13px; }
+    .break img { width:100%; max-height:none; }
     .break figcaption { padding:21px; }
     section { padding-block:34px; }
   }
@@ -154,7 +155,7 @@
 </div>
 
 <figure class="break">
-  <img src="img/imogene-backbend.jpg" alt="Imogene in a deep backbend on a studio floor, lit from one side" width="1400" height="1882">
+  <img src="img/imogene-lunge.jpg" alt="Imogene in a low lunge with her arms raised, lit from one side" width="1400" height="1821">
 </figure>
 
 <div class="wrap">
