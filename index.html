@@ -31,6 +31,15 @@
   .bar .mark { font-family:var(--display); font-style:italic; font-size:22px; letter-spacing:.01em; }
   .bar nav { display:flex; gap:21px; font-size:10px; letter-spacing:.28em; text-transform:uppercase; color:var(--bone-2); }
   .bar nav a:hover { color:var(--bone); }
+  .bar .right { display:flex; align-items:center; gap:21px; }
+  .music { font:inherit; font-size:10px; letter-spacing:.28em; text-transform:uppercase; color:var(--bone-2); background:none; border:0;
+           padding:0; cursor:pointer; display:inline-flex; align-items:center; gap:8px; }
+  .music:hover { color:var(--bone); }
+  .music .dot { width:5px; height:5px; border-radius:50%; background:var(--bone-2); }
+  .music[aria-pressed="true"] .dot { background:var(--bone); animation:pulse 1618ms ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity:1 } 50% { opacity:.25 } }
+  @media (prefers-reduced-motion: reduce) { .music[aria-pressed="true"] .dot { animation:none; } }
+  #spotify-embed { position:fixed; left:-9999px; bottom:0; width:300px; height:80px; opacity:0; pointer-events:none; }
 
   /* ── Hero ── */
   .hero { display:grid; grid-template-columns:1fr 1.618fr; align-items:end; gap:34px; padding-block:34px 55px; }
@@ -87,6 +96,7 @@
 
   @media (max-width:760px) {
     .bar nav { display:none; }
+    .music { font-size:9px; }
     .hero { grid-template-columns:1fr; gap:21px; padding-block:8px 34px; }
     .hero .photo { aspect-ratio:4 / 5; order:-1; }
     .hero .photo img { object-position:50% 15%; }
@@ -104,11 +114,14 @@
   <div class="in">
     <header class="bar">
       <a class="mark" href="#top">Imogene</a>
-      <nav>
-        <a href="#train">Train</a>
-        <a href="#work">Work with me</a>
-        <a href="#contact">Contact</a>
-      </nav>
+      <div class="right">
+        <nav>
+          <a href="#train">Train</a>
+          <a href="#work">Work with me</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <button class="music" id="musicBtn" type="button" aria-pressed="false" title="Lunar, by Vayu and Nomyn"><span class="dot"></span><span id="musicLabel">Play Lunar</span></button>
+      </div>
     </header>
 
     <section class="hero" id="top">
@@ -164,11 +177,43 @@
 
     <footer>
       <span class="mark">Imogene</span>
-      <span>imogenengo.com · Seattle, WA</span>
+      <span>imogenengo.com · Seattle, WA · <a href="https://open.spotify.com/track/6UTul92O3hyhqgvJHTCk5Z" target="_blank" rel="noopener">Lunar, Vayu &amp; Nomyn</a></span>
     </footer>
   </div>
 </div>
 
+<div id="spotify-embed"></div>
+<script>
+  (function () {
+    // Lunar, Vayu and Nomyn, from 0:27. Spotify's embed needs a tap before it will make sound.
+    var btn = document.getElementById('musicBtn'), label = document.getElementById('musicLabel');
+    var controller = null, playing = false, loading = false, START = 27;
+    function setState(p) { playing = p; btn.setAttribute('aria-pressed', p ? 'true' : 'false'); label.textContent = p ? 'Lunar' : 'Play Lunar'; }
+    function boot() {
+      loading = true; label.textContent = 'Loading';
+      window.onSpotifyIframeApiReady = function (IFrameAPI) {
+        IFrameAPI.createController(document.getElementById('spotify-embed'),
+          { uri: 'spotify:track:6UTul92O3hyhqgvJHTCk5Z', width: 300, height: 80 },
+          function (c) {
+            controller = c; loading = false;
+            c.addListener('ready', function () { c.play(); });
+            c.addListener('playback_update', function (e) {
+              var d = e.data || {};
+              if (!d.isPaused && d.position < START * 1000 - 500 && !c._seeked) { c._seeked = true; c.seek(START); }
+              setState(!d.isPaused);
+            });
+            c.play();
+          });
+      };
+      var s = document.createElement('script'); s.src = 'https://open.spotify.com/embed/iframe-api/v1'; s.async = true; document.body.appendChild(s);
+    }
+    btn.addEventListener('click', function () {
+      if (loading) return;
+      if (!controller) { boot(); return; }
+      controller.togglePlay();
+    });
+  })();
+</script>
 <script>
   (function () {
     var btn = document.getElementById('copyBtn');
